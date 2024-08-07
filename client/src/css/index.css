@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --lightBlue: #ADE4FF;
+    --darkBlue: #305D8E;
+    --offWhite: #FEF9FD;
+    --charcoal: #3C4248;
+}
+
+body {
+    background-color: var(--charcoal);
+    color: var(--offWhite)
+}
+
+#root {
+    height: 100vh;
+    display: grid;
+    place-content: center;
+    align-content: center;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 1em;
+    margin: 0 auto;
+}
+
+.cstm-container {
+    width: 50vw;
+    height: 50vh;
+    display: flex;  
+    flex-direction: column;  
+    justify-content: space-evenly;
+    align-items: center;
+}
+
