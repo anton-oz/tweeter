@@ -14,7 +14,7 @@ export default function Sidebar() {
   return (
     <div className="h-screen w-[250px] fixed flex flex-col justify-between p-4 pb-8 bg-bgSecondary border-r border-border">
       <h1 className="text-4xl font-bold tracking-tight flex items-center gap-2">
-        <img src={logo} alt="Tweeter logo" />
+        <Link to="/"><img src={logo} alt="Tweeter logo" /></Link>
         Tweeter
       </h1>
       
