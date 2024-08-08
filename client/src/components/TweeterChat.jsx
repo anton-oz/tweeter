@@ -8,9 +8,18 @@ export default function TweeterChat({ socket }) {
   const [room, setRoom] = useState("1");
 
   useEffect(() => {
+    const joinRoom = () => {
+      if (room !== "") {
+       socket.emit("join_room", room);
+      }
+    };
+    joinRoom();
+  }, [])
+
+  useEffect(() => {
     socket.on("receive_message", (data) => {
       console.log("Received message:", data.message);
-      setPosts((prevPosts) => [...prevPosts, data.message]);
+      setPosts((prevPosts) => [...prevPosts, data]);
     });
 
     return () => {
@@ -23,7 +32,7 @@ export default function TweeterChat({ socket }) {
   };
 
   const sendPost = () => {
-    socket.emit("send_message", { message, room });
+    socket.emit("send_message", { message, room, user: { name: "Owen Kanzler", avatar: "" } });
   };
 
   const handleFormSubmit = (e) => {
@@ -32,11 +41,11 @@ export default function TweeterChat({ socket }) {
 
     const newPost = {
       user: { name: "Owen Kanzler", avatar: "" },
-      message,
+      message
     };
 
     sendPost();
-    setPosts((prevPosts) => [...prevPosts, newPost]);
+    // setPosts((prevPosts) => [...prevPosts, newPost]);
     setMessage("");
   };
 

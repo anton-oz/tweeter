@@ -24,8 +24,8 @@ io.on("connection", (socket) => {
   });
 
   socket.on("send_message", (data) => {
-    const { message, room } = data;
-    io.to(room).emit("receive_message", { message });
+    const { message, room, user } = data;
+    io.to(room).emit("receive_message", { message, user });
     console.log(`Message: ${message} sent to room: ${room}`);
   });
 
