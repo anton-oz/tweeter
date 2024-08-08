@@ -6,7 +6,6 @@ const typeDefs = `
     email: String
     # There is now a field to store the user's password
     password: String
-    skills: [String]!
   }
 
   # Set up an Auth type to handle returning data from a profile creating or user login
