@@ -2,7 +2,9 @@
 import { Outlet } from "react-router-dom";
 import { SocketProvider } from "./context/SocketContext.jsx";
 
-import Nav from './components/Nav.jsx'
+import Nav from "./components/Nav.jsx";
+import TweeterChat from "./components/TweeterChat.jsx";
+import Sidebar from "./components/Sidebar.jsx";
 
 function App() {
   return (
