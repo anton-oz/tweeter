@@ -1,12 +1,23 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
+const Filter = require('bad-words');
+const filter = new Filter();
+
 const profileSchema = new Schema({
-  name: {
+  username: {
     type: String,
     required: true,
     unique: true,
     trim: true,
+    // 4-12 characters, upper and lowercase letters, numbers, periods, hyphens, and underscores
+    match: [/^[a-zA-Z0-9.\-_]{4,12}$/],
+    validate: {
+      validator: function(v) {
+        return !filter.isProfane(v);
+      },
+      message: 'Username cannot contain profanity!'
+    }
   },
   email: {
     type: String,
@@ -18,13 +29,7 @@ const profileSchema = new Schema({
     type: String,
     required: true,
     minlength: 5,
-  },
-  skills: [
-    {
-      type: String,
-      trim: true,
-    },
-  ],
+  }
 });
 
 // set up pre-save middleware to create password
