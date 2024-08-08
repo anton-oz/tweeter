@@ -1,10 +1,14 @@
-const { Profile } = require('../models');
+const { Profile, Question } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
   Query: {
     profiles: async () => {
       return Profile.find();
+    },
+
+    question: async () => {
+      return Question.find();
     },
 
     profile: async (parent, { profileId }) => {
