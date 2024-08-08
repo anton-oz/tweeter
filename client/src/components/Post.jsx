@@ -1,6 +1,8 @@
 import React from "react";
 
-export default function Post(props) {
+export default function Post({ user, message }) {
+  const { user: postUser, message: postMessage } = message;
+
   return (
     <div className="flex gap-2">
       {/* user profile pic */}
@@ -15,9 +17,9 @@ export default function Post(props) {
       </div>
       <div className="flex flex-col gap-1">
         {/* user name */}
-        <h3 className="font-bold flex gap-2 items-center">{props.user.name}</h3>
+        <h3 className="font-bold flex gap-2 items-center">{postUser.name}</h3>
         {/* user message */}
-        <p className="text-text2">{props.message}</p>
+        <p className="text-text2">{postMessage}</p>
       </div>
     </div>
   );
