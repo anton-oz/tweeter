@@ -4,9 +4,14 @@
 import io from "socket.io-client";
 import { useEffect, useState } from "react";
 
-const socket = io.connect("http://localhost:3001");
+import { useSocketContext } from "../context/SocketContext";
+
 
 function Home() {
+
+  // socket context
+  const socket = useSocketContext();
+
   // Room State
   const [room, setRoom] = useState("");
 
