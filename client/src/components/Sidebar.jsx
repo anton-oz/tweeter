@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useQuery } from "@apollo/client";
+import { GET_PROFILE } from "../utils/queries";
 import AuthService from "../utils/auth";
 import logo from "../assets/logo.svg";
 
@@ -9,13 +11,22 @@ export default function Sidebar() {
   const [user, setUser] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  // const { data, loading, error } = useQuery(GET_PROFILE, {
+  //   variables: { id: user?._id }, // Pass the user ID
+  //   skip: !user?._id, // Skip if user ID is not available
+  // });
+
+  console.log(AuthService.loggedIn());
+
   useEffect(() => {
     if (AuthService.loggedIn()) {
       const userProfile = AuthService.getProfile();
+      console.log("userprofile", userProfile);
       setUser(userProfile);
       setIsLoggedIn(true);
     } else {
       setIsLoggedIn(false);
+      setUser(null);
     }
   }, []);
 
@@ -40,8 +51,10 @@ export default function Sidebar() {
           >
             <div className="w-[50px] h-[50px] bg-primary rounded-full"></div>
             <div className="flex flex-col">
-              <h2 className="font-bold">{user.name}</h2>
-              <span className="text-textSecondary text-sm">{user.email}</span>
+              <h2 className="font-bold text-left">{user.data.username}</h2>
+              <span className="text-textSecondary text-sm">
+                {user.data.email}
+              </span>
             </div>
           </button>
         ) : (

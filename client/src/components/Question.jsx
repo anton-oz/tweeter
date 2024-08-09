@@ -7,6 +7,7 @@ import { useSocketContext } from "../context/SocketContext";
 export default function Question({ room }) {
 
     const socket = useSocketContext();
+  
     const [currentQuestion, setCurrentQuestion] = useState('');
     const [loading, setLoading] = useState(true);
 

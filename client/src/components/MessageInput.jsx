@@ -27,7 +27,7 @@ const MessageInput = ({ sendMessage, disabled }) => {
             type="text"
             value={message}
             onChange={handleMessageChange}
-            placeholder="Type a message according to the topic"
+            placeholder="Login to get your Tweeter on!"
             className="w-full bg-transparent focus:outline-none"
             disabled
           />

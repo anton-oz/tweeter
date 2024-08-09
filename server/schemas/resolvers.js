@@ -1,5 +1,5 @@
-const { Profile, Question } = require('../models');
-const { signToken, AuthenticationError } = require('../utils/auth');
+const { Profile, Question } = require("../models");
+const { signToken, AuthenticationError } = require("../utils/auth");
 
 const resolvers = {
   Query: {
@@ -25,25 +25,25 @@ const resolvers = {
     },
     login: async (parent, { email, password }) => {
       const profile = await Profile.findOne({ email });
+      console.log("test", profile);
 
       if (!profile) {
-        throw AuthenticationError
+        throw AuthenticationError;
       }
 
       const correctPw = await profile.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw AuthenticationError
+        throw AuthenticationError;
       }
 
       const token = signToken(profile);
+      console.log("test1", token);
       return { token, profile };
     },
-
     removeProfile: async (parent, { profileId }) => {
       return Profile.findOneAndDelete({ _id: profileId });
     },
-    
   },
 };
 
