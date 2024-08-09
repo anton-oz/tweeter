@@ -6,7 +6,6 @@ const filter = new Filter();
 
 const profileSchema = new Schema({
   username: {
-  username: {
     type: String,
     required: true,
     unique: true,
@@ -31,7 +30,7 @@ const profileSchema = new Schema({
     required: true,
     minlength: 5,
   }
-}});
+});
 // set up pre-save middleware to create password
 profileSchema.pre('save', async function (next) {
   if (this.isNew || this.isModified('password')) {
