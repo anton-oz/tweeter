@@ -1,66 +1,94 @@
 import { useState } from "react";
+import logo from "../assets/logo.svg";
+
+import { useMutation } from "@apollo/client";
+import { ADD_USER } from "../utils/mutations";
+
+import Auth from "../utils/auth";
 
 function Signup() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [formState, setFormState] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+  const [addProfile, { error, data }] = useMutation(ADD_USER);
 
-  const handleInputChange = (e) => {
-    // Getting the value and name of the input which triggered the change
-    const { target } = e;
-    const inputType = target.name;
-    const inputValue = target.value;
-    // Based on the input type, we set the state of either email, username, and password
-    if (inputType === 'username') {
-      setUsername(inputValue);
-    } 
-    else if (inputType === 'password') {
-      setPassword(inputValue);
-    }
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
   };
 
-  const handleFormSubmit = (e) => {
-    // Preventing the default behavior of the form submit (which is to refresh the page)
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    // First we check to see if the email is not valid or if the userName is empty. If so we set an error message to be displayed on the page.
-    if (!username) {
-      return alert('please enter a username')
+    console.log(formState);
+
+    try {
+      const { data } = await addProfile({
+        variables: { ...formState },
+      });
+
+      Auth.login(data.addProfile.token);
+      console.log(data);
+    } catch (e) {
+      console.error(e);
     }
-    else if (!password) {
-      return alert('please enter a password')
-    }
-    // If everything goes according to plan, we want to clear out the input after a successful registration.
-    alert(`Hello ${username}`);
-    setUsername('');
-    setPassword('');
+    setFormState({
+      username: "",
+      email: "",
+      password: "",
+    });
   };
   return (
-    <>
-      <h2 className="text-center mb-3">Signup Page</h2>
-        <form className='max-w-sm mx-auto flex flex-col items-center' onSubmit={handleFormSubmit}>
-          <input
-            className="mb-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            type="text"
-            name="username"
-            value={username}
-            onChange={handleInputChange}
-            placeholder="username..."
-          />
-          <input
-            className="mb-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            type="password"  
-            name="password"
-            value={password}
-            onChange={handleInputChange}
-            placeholder="password..."
-          />
-          <button 
+    <div className="bg-bgSecondary border border-border rounded-lg p-8 flex flex-col gap-8">
+      <div className="flex flex-col gap-2">
+        <h2 className="text-3xl font-bold tracking-tight flex items-center gap-2">
+          <img src={logo} alt="tweeter logo" />
+          Tweeter
+        </h2>
+        <p className="text-sm text-textSecondary">
+          Join Tweeter today—connect, chat, and grow with vibrant communities!
+        </p>
+      </div>
+      <form className=" flex flex-col w-full gap-4" onSubmit={handleFormSubmit}>
+        <input
+          className="bg-interactive border border-border p-3 text-text rounded-lg hover:shadow-hover hover:shadow-primary transition-all duration-300 ease-in-out focus:outline-none"
+          type="text"
+          name="username"
+          value={formState.username}
+          onChange={handleChange}
+          placeholder="username..."
+        />
+        <input
+          className="bg-interactive border border-border p-3 text-text rounded-lg hover:shadow-hover hover:shadow-primary transition-all duration-300 ease-in-out focus:outline-none"
+          type="email"
+          name="email"
+          value={formState.email}
+          onChange={handleChange}
+          placeholder="email..."
+        />
+        <input
+          className="bg-interactive border border-border p-3 text-text rounded-lg hover:shadow-hover hover:shadow-primary transition-all duration-300 ease-in-out focus:outline-none"
+          type="password"
+          name="password"
+          value={formState.password}
+          onChange={handleChange}
+          placeholder="password..."
+        />
+        <div>
+          <button
             type="submit"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className="bg-interactive border border-border px-8 py-2 mt-4 text-text rounded-lg hover:shadow-hover hover:shadow-primary transition-all duration-300 ease-in-out"
           >
             Sign Up
           </button>
-        </form>
-    </>
+        </div>
+      </form>
+    </div>
   );
 }
 export default Signup;

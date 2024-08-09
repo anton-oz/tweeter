@@ -1,4 +1,3 @@
-
 const typeDefs = `
   type Profile {
     _id: ID
