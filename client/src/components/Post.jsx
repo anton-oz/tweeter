@@ -1,9 +1,7 @@
 import React from "react";
 
 export default function Post({ user, message }) {
-  const { user: postUser, message: postMessage } = message;
-
-  console.log('message render', postMessage)
+  console.log("message render", postMessage);
 
   return (
     <div className="flex gap-2">
@@ -19,9 +17,9 @@ export default function Post({ user, message }) {
       </div>
       <div className="flex flex-col gap-1">
         {/* user name */}
-        <h3 className="font-bold flex gap-2 items-center">{postUser?.name || 'error' }</h3>
+        <h3 className="font-bold flex gap-2 items-center">{user}</h3>
         {/* user message */}
-        <p className="text-text2">{postMessage || 'not right'}</p>
+        <p className="text-text2">{message.message}</p>
       </div>
     </div>
   );

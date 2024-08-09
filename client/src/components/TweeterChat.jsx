@@ -8,6 +8,17 @@ import Question from "./Question";
 export default function TweeterChat({ socket }) {
   const [posts, setPosts] = useState([]);
   const [room, setRoom] = useState("1");
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    if (AuthService.loggedIn()) {
+      const userProfile = AuthService.getProfile();
+      console.log("chat", userProfile);
+      setUser(userProfile);
+    } else {
+      setUser(null);
+    }
+  }, []);
 
   useEffect(() => {
     const joinRoom = () => {
@@ -33,7 +44,7 @@ export default function TweeterChat({ socket }) {
     socket.emit("send_message", {
       message,
       room,
-      user: { name: "Owen Kanzler", avatar: "" },
+      user: { name: user.data.username, avatar: "" },
     });
   };
 
@@ -44,8 +55,8 @@ export default function TweeterChat({ socket }) {
         {posts.map((post, i) => (
           <Post
             key={i}
-            user={post.user}
-            message={{ user: post.user, message: post.message }}
+            user={user.data.username}
+            message={{ user: user.data.username, message: post.message }}
           />
         ))}
       </div>

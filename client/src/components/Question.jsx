@@ -2,11 +2,13 @@ import { useQuery } from "@apollo/client";
 import { useState, useEffect } from "react";
 import { GET_QUESTION } from '../utils/queries';
 
-export default function Question() {
 
-    const { loading, data, error } = useQuery(GET_QUESTION);
-    const [questions, setQuestions] = useState([]);
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
+export default function Question() {
+  const { loading, data } = useQuery(GET_QUESTION);
+  const [questions, setQuestions] = useState([]);
+  const { loading, data, error } = useQuery(GET_QUESTION);
+  const [questions, setQuestions] = useState([]);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
 
     function getRandomIndex(arrayLength) {
         return Math.floor(Math.random() * arrayLength);
