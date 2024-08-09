@@ -1,20 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import arrow from "../assets/arrow.svg";
 import EmojiPicker from "emoji-picker-react";
 import emoji from "../assets/emoji.svg";
+import { ADD_POST } from "../utils/mutations";
+import { useMutation } from "@apollo/client";
 
-const MessageInput = ({ sendMessage, disabled }) => {
+const MessageInput = ({ sendMessage, disabled, userId }) => {
   const [message, setMessage] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+
+  const [addPost, { error, loading, data }] = useMutation(ADD_POST) //
+
 
   const handleMessageChange = (event) => {
     setMessage(event.target.value);
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (message.trim() === "") return;
-
+    console.log(userId)
+    await addPost({
+      variables: {
+        comment: message,
+        profileId: userId
+      }
+    });
     sendMessage(message);
     setMessage("");
     setShowEmojiPicker(false);

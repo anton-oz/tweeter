@@ -23,3 +23,16 @@ export const LOGIN_USER = gql`
     }
   }
 `;
+
+export const ADD_POST = gql`
+  mutation addPost($comment: String!, $profileId: ID!) {
+    addPost(comment: $comment, profileId: $profileId) {
+      _id
+      comment
+      profile {
+        _id
+        username
+      }
+    }
+  }
+`
