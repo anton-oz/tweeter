@@ -1,26 +1,26 @@
 [
     {
-        "name": "Test User",
+        "username": "Test_User",
         "email": "testUser@test.user",
         "password": "Password01!"
     },
     {
-        "name": "Use Tester",
+        "username": "Use_Tester",
         "email": "userTest@test.user",
         "password": "pAssword02@"
     },
     {
-        "name": "Kalima Heart Break",
+        "username": "Kalima_Heart",
         "email": "kalima@gmail.com",
         "password": "paSsword03#"
     },
     {
-        "name": "Gorgug Thistlespring",
+        "username": "Gorgug",
         "email": "gorgug@thistlespring.bad",
         "password": "password04$@"
     },
     {
-        "name": "Brennan Lee Mulligan",
+        "username": "Bleem",
         "email": "birdFacts@getinthecomme.nts",
         "password": "password05%"
     }
