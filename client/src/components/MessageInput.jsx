@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import arrow from "../assets/arrow.svg";
+import EmojiPicker from "emoji-picker-react";
+import emoji from "../assets/emoji.svg";
 
 const MessageInput = ({ sendMessage, disabled }) => {
   const [message, setMessage] = useState("");
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
   const handleMessageChange = (event) => {
     setMessage(event.target.value);
@@ -14,7 +17,17 @@ const MessageInput = ({ sendMessage, disabled }) => {
 
     sendMessage(message);
     setMessage("");
+    setShowEmojiPicker(false);
   };
+
+  const handleEmojiSelect = (emoji, emojiObject) => {
+    console.log("emojiObject:", emojiObject);
+    setMessage(message + (emojiObject.emoji));
+  }
+
+  const toggleEmojiPicker = () => {
+    setShowEmojiPicker(!showEmojiPicker);
+  }
 
   return (
     <form
@@ -41,6 +54,18 @@ const MessageInput = ({ sendMessage, disabled }) => {
             placeholder="Type a message according to the topic"
             className="w-full bg-transparent focus:outline-none"
           />
+          <button
+            type="button"
+            onClick={toggleEmojiPicker}
+            className="bg-transparent p-2 rounded-lg hover:shadow-hover hover:shadow-primary transition-all duration-300 ease-in-out"
+            >
+              <img src={emoji} alt="emoji" />
+          </button>
+          {showEmojiPicker && (
+            <div className="absolute bottom-28 right-6 z-10">
+              <EmojiPicker onEmojiClick={handleEmojiSelect} />
+            </div>
+          )}
           <button
             type="submit"
             className="bg-primary p-2 rounded-lg hover:shadow-hover hover:shadow-primary transition-all duration-300 ease-in-out"
