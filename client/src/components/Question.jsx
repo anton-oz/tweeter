@@ -32,7 +32,7 @@ export default function Question({ room }) {
     }, [socket])
 
     return (
-        <div className="flex justify-center items-start h-screen mt-20">
+        <div className="flex justify-center text-center text-2xl leading-10 items-start top-[20%] right-0 left-[20%] m-auto w-fit max-w-[30%] absolute bg-slate-400 p-4 rounded bg-opacity-50">
             <h1>
                 {loading ? 'loading...' : currentQuestion ? currentQuestion : 'error'}
             </h1>
