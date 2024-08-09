@@ -6,12 +6,13 @@ const filter = new Filter();
 
 const profileSchema = new Schema({
   username: {
+  username: {
     type: String,
     required: true,
     unique: true,
     trim: true,
     // 4-12 characters, upper and lowercase letters, numbers, periods, hyphens, and underscores
-    match: [/^[a-zA-Z0-9.\-_]{4,12}$/],
+    match: [/^[a-zA-Z0-9.\-_]{4,12}$/, 'Username must be between 4 and 12 characters and contain only letters, numbers, periods, hyphens, and underscores!'],
     validate: {
       validator: function(v) {
         return !filter.isProfane(v);
@@ -30,8 +31,7 @@ const profileSchema = new Schema({
     required: true,
     minlength: 5,
   }
-});
-
+}});
 // set up pre-save middleware to create password
 profileSchema.pre('save', async function (next) {
   if (this.isNew || this.isModified('password')) {
