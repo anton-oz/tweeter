@@ -1,46 +1,40 @@
 import { useQuery } from "@apollo/client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { GET_QUESTION } from '../utils/queries';
 
-export default function Question() {
+import { useSocketContext } from "../context/SocketContext";
 
-    const { loading, data, error } = useQuery(GET_QUESTION);
-    const [questions, setQuestions] = useState([]);
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
+export default function Question({ room }) {
 
-    function getRandomIndex(arrayLength) {
-        return Math.floor(Math.random() * arrayLength);
-    }
+    const socket = useSocketContext();
+    const [currentQuestion, setCurrentQuestion] = useState('');
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (data) {
-            setQuestions(data.question)
-        }
+        socket.on("set_question", ({ question }) => {
+            setCurrentQuestion(question);
+        });
 
-    }, [data]);
-
-    // set time for questions to loop
-    const questionLoopTime = 10 * 1000 // 10 seconds
+        return () => {
+            socket.off("set_question");
+        };
+    }, [socket]);
 
     useEffect(() => {
-        if (questions.length > 0) {
-            const intervalId = setInterval(() => {
-                setCurrentQuestionIndex((prevIndex) => {
-                    return (prevIndex + 1) % questions.length;
-                });
-            }, questionLoopTime); 
-
-            // Cleanup interval on component unmount
-            return () => clearInterval(intervalId);
-        }
-    }, [questions]);
+        // timeout to wait for user to connect to server
+        setTimeout(() => {
+            socket.emit('get_question', {
+                room
+            })
+            setLoading(false)
+        }, 500)
+    }, [socket])
 
     return (
         <div className="flex justify-center items-start h-screen mt-20">
             <h1>
-                {}
-                {loading ? 'Loading...' : questions.length > 0 ? questions[currentQuestionIndex].question : 'No Questions Available'}
+                {loading ? 'loading...' : currentQuestion ? currentQuestion : 'error'}
             </h1>
         </div>
     );
-}
+};

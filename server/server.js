@@ -2,23 +2,44 @@ const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
 const cors = require("cors");
+// Apollo Server
 const { ApolloServer, gql } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');
 const { typeDefs, resolvers } = require('./schemas');
-
+// Database 
+const { Question } = require('./models')
 const db = require('./config/connection');
-
-
+// App Config
+const allowedOrigins = ['http://localhost:3000', 'https://yourdomain.com'];
 const app = express();
-app.use(cors());
 app.use(express.json());
+app.use(cors({
+  origin: function(origin, callback){
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}));
 
 const apolloServer = new ApolloServer({ typeDefs, resolvers });
 
+// getting questions array for socket emit
+const questions = []
+
+const setQuestions = async () => {
+  const here = await Question.find()
+  here.map((item) => questions.push(item));
+}
+
+setQuestions();
+
 async function startApolloServer() {
   await apolloServer.start();
-
   app.use('/graphql', expressMiddleware(apolloServer));
+  console.log('running')
+
 
   const server = http.createServer(app);
 
@@ -29,6 +50,32 @@ async function startApolloServer() {
     }
   });
 
+
+  // checking if should emit to all users or only one user
+  function emitCurrentQuestion(user) {
+    if (!user) {
+      io.emit("set_question", { question: questions[currentQuestionIndex].question });
+    }
+    else {
+      io.to(user).emit("set_question", { question: questions[currentQuestionIndex].question });
+    }
+  }
+
+  // Question Timer
+  let currentQuestionIndex = 0; // index on server start
+
+  const questionInterval = 5 * 1000 // 5 seconds, change to something more reasonable in production
+
+  function startQuestionInterval() {
+    setInterval(() => {
+      currentQuestionIndex = (currentQuestionIndex + 1) % questions.length;
+      emitCurrentQuestion();
+    }, questionInterval); 
+  }
+
+  startQuestionInterval();
+
+  // client connection responses.
   io.on("connection", (socket) => {
     console.log("User connected:", socket.id);
 
@@ -37,6 +84,10 @@ async function startApolloServer() {
       console.log(`User with ID: ${socket.id} joined room: ${room}`);
     });
 
+    socket.on("get_question", () => {
+      emitCurrentQuestion(socket.id);
+    })
+   
     socket.on("send_message", (data) => {
       const { message, room, user } = data;
       io.to(room).emit("receive_message", { message, user });

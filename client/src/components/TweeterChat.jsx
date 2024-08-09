@@ -39,7 +39,7 @@ export default function TweeterChat({ socket }) {
 
   return (
     <main className="pl-[17.75rem] p-8 flex flex-col gap-8 h-screen justify-end w-screen">
-      <Question />
+      <Question room={room} />
       <div className="flex flex-col gap-4">
         {posts.map((post, i) => (
           <Post
