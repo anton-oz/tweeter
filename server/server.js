@@ -65,7 +65,7 @@ async function startApolloServer() {
   // Question Timer
   let currentQuestionIndex = 0; // index on server start
 
-  const questionInterval = 5 * 1000 // 5 seconds, change to something more reasonable in production
+  const questionInterval = 15 * 1000 // 15 seconds, change to something more reasonable in production
 
   function startQuestionInterval() {
     setInterval(() => {

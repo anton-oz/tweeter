@@ -30,10 +30,10 @@ export const GET_PROFILE_USERNAME = gql`
 
 export const GET_POSTS = gql`
   query getPosts {
-    posts {
+    getPosts {
       _id
       comment
-      user {
+      profile {
         _id
         username
         email
