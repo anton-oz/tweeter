@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import arrow from "../assets/arrow.svg";
 
-const MessageInput = ({ sendMessage }) => {
+const MessageInput = ({ sendMessage, disabled }) => {
   const [message, setMessage] = useState("");
 
   const handleMessageChange = (event) => {
@@ -21,19 +21,34 @@ const MessageInput = ({ sendMessage }) => {
       onSubmit={handleFormSubmit}
       className="flex gap-4 bg-interactive py-4 px-6 rounded-lg border border-border"
     >
-      <input
-        type="text"
-        value={message}
-        onChange={handleMessageChange}
-        placeholder="Type a message according to the topic"
-        className="w-full bg-transparent focus:outline-none"
-      />
-      <button
-        type="submit"
-        className="bg-primary p-2 rounded-lg hover:shadow-hover hover:shadow-primary transition-all duration-300 ease-in-out"
-      >
-        <img src={arrow} alt="submit" />
-      </button>
+      {disabled ? (
+        <>
+          <input
+            type="text"
+            value={message}
+            onChange={handleMessageChange}
+            placeholder="Type a message according to the topic"
+            className="w-full bg-transparent focus:outline-none"
+            disabled
+          />
+        </>
+      ) : (
+        <>
+          <input
+            type="text"
+            value={message}
+            onChange={handleMessageChange}
+            placeholder="Type a message according to the topic"
+            className="w-full bg-transparent focus:outline-none"
+          />
+          <button
+            type="submit"
+            className="bg-primary p-2 rounded-lg hover:shadow-hover hover:shadow-primary transition-all duration-300 ease-in-out"
+          >
+            <img src={arrow} alt="submit" />
+          </button>
+        </>
+      )}
     </form>
   );
 };
