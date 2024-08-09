@@ -4,7 +4,10 @@ const { Server } = require("socket.io");
 const cors = require("cors");
 const { ApolloServer, gql } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');
-const { typeDefs, resolvers } = require('./schemas')
+const { typeDefs, resolvers } = require('./schemas');
+
+const db = require('./config/connection');
+
 
 const app = express();
 app.use(cors());
@@ -45,10 +48,12 @@ async function startApolloServer() {
     });
   });
 
-  server.listen(3001, () => {
-    console.log("Server is running on port 3001");
-    console.log('graphql available at http://localhost:3001/graphql');
-  });
+  db.once('open', () => {
+    server.listen(3001, () => {
+      console.log("Server is running on port 3001");
+      console.log('graphql available at http://localhost:3001/graphql');
+    });
+  })
 };
 
 startApolloServer();

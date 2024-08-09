@@ -11,9 +11,15 @@ const typeDefs = `
     token: ID!
     profile: Profile
   }
+    
+  type Question{
+    _id: ID
+    question: String
+  }
 
   type Query {
     profiles: [Profile]!
+    question: [Question]
     profile(profileId: ID!): Profile
   }
 
