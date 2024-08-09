@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.jsx";
-import PrivateRoute from "./components/PrivateRoute.jsx";
 import "./css/index.css";
 
 import Home from "./pages/Home.jsx";
@@ -16,7 +15,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <PrivateRoute element={<Home />} />,
+        element: <Home />,
       },
       {
         path: "login",
