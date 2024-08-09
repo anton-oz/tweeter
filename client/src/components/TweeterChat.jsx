@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Post from "./Post";
 import MessageInput from "./MessageInput";
 import AuthService from "../utils/auth";
+import { useQuery } from "@apollo/client";
+import { GET_POSTS } from "../utils/queries";
 
 import Question from "./Question";
 
@@ -10,6 +12,10 @@ export default function TweeterChat({ socket }) {
   const [room, setRoom] = useState("1");
   const [user, setUser] = useState(null);
 
+  // array for post username
+  const [postUser, setPostUser] = useState([]);
+
+  
   useEffect(() => {
     if (AuthService.loggedIn()) {
       const userProfile = AuthService.getProfile();
@@ -31,10 +37,9 @@ export default function TweeterChat({ socket }) {
 
   useEffect(() => {
     socket.on("receive_message", (data) => {
-      console.log("Received message:", data.message);
+      setPostUser((prevUsers) => [...prevUsers, data.user.name])
       setPosts((prevPosts) => [...prevPosts, data]);
     });
-
     return () => {
       socket.off("receive_message");
     };
@@ -55,13 +60,13 @@ export default function TweeterChat({ socket }) {
         {posts.map((post, i) => (
           <Post
             key={i}
-            user={user.data.username}
+            user={postUser[i]}
             message={{ user: user.data.username, message: post.message }}
           />
         ))}
       </div>
       {AuthService.loggedIn() ? (
-        <MessageInput sendMessage={sendMessage} />
+        <MessageInput sendMessage={sendMessage} userId={user ? user?.data._id : ''} />
       ) : (
         <MessageInput sendMessage={sendMessage} disabled={true} />
       )}

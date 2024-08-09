@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function Post({ user, message }) {
-  console.log("message render", postMessage);
 
   return (
     <div className="flex gap-2">

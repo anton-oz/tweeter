@@ -17,3 +17,27 @@ export const GET_PROFILE = gql`
     }
   }
 `;
+
+export const GET_PROFILE_USERNAME = gql`
+  query getProfileUsername($username: String!) {
+    profile(username: $username) {
+      _id
+      username
+      email
+    }
+  }
+`
+
+export const GET_POSTS = gql`
+  query getPosts {
+    posts {
+      _id
+      comment
+      user {
+        _id
+        username
+        email
+      }
+    }
+  }
+`

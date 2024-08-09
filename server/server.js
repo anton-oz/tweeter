@@ -13,15 +13,16 @@ const db = require('./config/connection');
 const allowedOrigins = ['http://localhost:3000', 'https://yourdomain.com'];
 const app = express();
 app.use(express.json());
-app.use(cors({
-  origin: function(origin, callback){
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  }
-}));
+// app.use(cors({
+//   origin: function(origin, callback){
+//     if (allowedOrigins.indexOf(origin) !== -1) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   }
+// }));
+app.use(cors())
 
 const apolloServer = new ApolloServer({ typeDefs, resolvers });
 
