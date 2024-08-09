@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Post from "./Post";
 import MessageInput from "./MessageInput";
+import AuthService from "../utils/auth";
 
 export default function TweeterChat({ socket }) {
   const [posts, setPosts] = useState([]);
@@ -27,7 +28,11 @@ export default function TweeterChat({ socket }) {
   }, [socket]);
 
   const sendMessage = (message) => {
-    socket.emit("send_message", { message, room, user: { name: "Owen Kanzler", avatar: "" } });
+    socket.emit("send_message", {
+      message,
+      room,
+      user: { name: "Owen Kanzler", avatar: "" },
+    });
   };
 
   return (
@@ -41,7 +46,11 @@ export default function TweeterChat({ socket }) {
           />
         ))}
       </div>
-      <MessageInput sendMessage={sendMessage} />
+      {AuthService.loggedIn() ? (
+        <MessageInput sendMessage={sendMessage} />
+      ) : (
+        <MessageInput sendMessage={sendMessage} disabled={true} />
+      )}
     </main>
   );
 }
