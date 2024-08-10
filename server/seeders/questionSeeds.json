@@ -15,17 +15,135 @@
         "question": "If you were trapped in a home depot with a gorilla what is your game plan?(You start on opposite sides and it's just you and the gorilla)"
     },
     {
-        "question": "would you rathe be a cowboy, pirate, or ninja? Why?"
+        "question": "Would you rather be a cowboy, pirate, or ninja? Why?"
     },
     {
         "question": "What fictional creature would you want as a companion?"
     },
     {
-        "question": "Batman vs Iron man, who wins and why?"
+        "question": "Batman vs Iron Man, who wins and why?"
     },
     {
-        "question": "whst fictional world would you want to live in? Would you want to be part of a cetain group or just live in that world?"
-    }
-    
-
+        "question": "What fictional world would you want to live in? Would you want to be part of a certain group or just live in that world?"
+    },
+    {
+        "question": "If you could visit any planet, which one would it be and why?"
+    },
+    {
+        "question": "What superpower would you want to have for a day?"
+    },
+    {
+        "question": "If you could live in any time period, which would it be?"
+    },
+    {
+        "question": "What's one skill you wish you could master instantly?"
+    },
+    {
+        "question": "If you could have dinner with any historical figure, who would it be?"
+    },
+    {
+        "question": "What fictional world would you most want to live in?"
+    },
+    {
+        "question": "If you could only eat one food for the rest of your life, what would it be?"
+    },
+    {
+        "question": "What's the most interesting piece of trivia you know?"
+    },
+    {
+        "question": "If you could swap lives with any person for a day, who would it be?"
+    },
+    {
+        "question": "What's one book or movie that had a major impact on you?"
+    },
+    {
+        "question": "What is the most important lesson you've learned in life so far?"
+    },
+    {
+        "question": "If you could change one thing about the world, what would it be?"
+    },
+    {
+        "question": "Do you believe that everyone has a purpose in life? If so, what do you think yours is?"
+    },
+    {
+        "question": "What do you think happens after we die?"
+    },
+    {
+        "question": "If you could know the absolute truth to one question, what question would you ask?"
+    },
+    {
+        "question": "What does success mean to you, and do you feel you've achieved it?"
+    },
+    {
+        "question": "If you could erase one memory from your past, would you? And if so, which one?"
+    },
+    {
+        "question": "What do you think is the biggest challenge facing humanity today?"
+    },
+    {
+        "question": "If you could relive one moment in your life, what would it be?"
+    },
+    {
+        "question": "What do you believe is the meaning of life?"
+    },
+    {
+        "question": "What is your favorite book of all time and why?"
+    },
+    {
+        "question": "What's your favorite place to visit and what makes it special?"
+    },
+    {
+        "question": "Who is your favorite fictional character and what do you admire about them?"
+    },
+    {
+        "question": "What is your favorite way to spend a weekend?"
+    },
+    {
+        "question": "What's your favorite hobby or pastime?"
+    },
+    {
+        "question": "What is your favorite movie, and what impact did it have on you?"
+    },
+    {
+        "question": "What is your favorite season of the year and why?"
+    },
+    {
+        "question": "What is your favorite quote or saying?"
+    },
+    {
+        "question": "What is your favorite meal to cook or eat?"
+    },
+    {
+        "question": "What is your favorite music genre, and why does it resonate with you?"
+    },
+    {
+        "question": "What is your favorite programming language and why?"
+    },
+    {
+        "question": "What software development project are you most proud of and why?"
+    },
+    {
+        "question": "What is the biggest challenge you've faced in software development?"
+    },
+    {
+        "question": "What is your preferred development environment (IDE, tools, etc.)?"
+    },
+    {
+        "question": "How do you approach debugging a complex issue in your code?"
+    },
+    {
+        "question": "What software development methodology do you prefer (e.g., Agile, Scrum, Waterfall)?"
+    },
+    {
+        "question": "What do you think is the most important aspect of writing clean, maintainable code?"
+    },
+    {
+        "question": "What is your favorite design pattern, and how have you used it in your projects?"
+    },
+    {
+        "question": "What emerging technologies in software development are you most excited about?"
+    },
+    {
+        "question": "How do you stay up-to-date with the latest trends and best practices in software development?"
+    }  
 ]
