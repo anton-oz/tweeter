@@ -84,12 +84,21 @@ export default function Sidebar() {
             <ul>
               {isLoggedIn ? (
                 <>
+                   <Link to="/">
                   <li className="bg-interactive mb-1 p-2 rounded-lg border border-border items-center hover:border-primary cursor-pointer hover:shadow-hover transition-all duration-300">
-                    <Link to="/profile">Profile</Link>
+                    Chat
                   </li>
+                  </Link>
+                <Link to="/profile">
                   <li className="bg-interactive mb-1 p-2 rounded-lg border border-border items-center hover:border-primary cursor-pointer hover:shadow-hover transition-all duration-300">
-                    <Link to="/settings">Settings</Link>
+                    Profile
                   </li>
+                  </Link>
+                  <Link to="/settings">
+                  <li className="bg-interactive mb-1 p-2 rounded-lg border border-border items-center hover:border-primary cursor-pointer hover:shadow-hover transition-all duration-300">
+                    Settings
+                  </li>
+                  </Link>
                   <li className="bg-interactive mb-1 p-2 rounded-lg border border-border items-center hover:border-primary cursor-pointer hover:shadow-hover transition-all duration-300">
                     <button onClick={handleLogout}>Logout</button>
                   </li>
