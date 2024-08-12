@@ -34,6 +34,10 @@ export default function Sidebar() {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  const handleLogout = () => {
+    AuthService.logout();
+  };
+
   return (
     <div className="h-screen w-[250px] fixed flex flex-col justify-between p-4 pb-8 bg-bgSecondary border-r border-border">
       <Link to="/">
@@ -87,7 +91,7 @@ export default function Sidebar() {
                     <Link to="/settings">Settings</Link>
                   </li>
                   <li className="bg-interactive mb-1 p-2 rounded-lg border border-border items-center hover:border-primary cursor-pointer hover:shadow-hover transition-all duration-300">
-                    <Link to="/logout">Logout</Link>
+                    <button onClick={handleLogout}>Logout</button>
                   </li>
                 </>
               ) : (
