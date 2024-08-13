@@ -5,6 +5,8 @@ import { GET_PROFILE } from "../utils/queries";
 import AuthService from "../utils/auth";
 import logo from "../assets/logo.svg";
 
+import { LogIn, LogOut, MessageSquare, Settings, UserPlus } from "lucide-react";
+
 export default function Sidebar() {
   // get user info
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -47,11 +49,37 @@ export default function Sidebar() {
         </h1>
       </Link>
       {/* Make it get the users info */}
-      <div className="relative">
+      <div className="flex flex-col items-center gap-2">
+        {/* Dropdown menu */}
+        {isDropdownOpen && (
+          <div className="w-full p-2 bg-interactive rounded-lg border border-border">
+            <ul className="flex flex-col gap-1 text-sm">
+              {isLoggedIn && (
+                <>
+                  <Link to="/">
+                    <li className="flex items-center gap-2 bg-bgSecondary p-2 rounded-lg border border-border hover:border-primary cursor-pointer hover:shadow-hover transition-all duration-300">
+                      <MessageSquare size={20} className="text-primary" /> Chat
+                    </li>
+                  </Link>
+                  <Link to="/settings">
+                    <li className="flex items-center gap-2 bg-bgSecondary p-2 rounded-lg border border-border hover:border-primary cursor-pointer hover:shadow-hover transition-all duration-300">
+                      <Settings size={20} className="text-primary" /> Settings
+                    </li>
+                  </Link>
+                  <li className="flex items-center gap-2 bg-bgSecondary p-2 rounded-lg border border-border hover:border-primary cursor-pointer hover:shadow-hover transition-all duration-300">
+                    <LogOut size={20} className="text-primary" />
+                    <button onClick={handleLogout}>Logout</button>
+                  </li>
+                </>
+              )}
+            </ul>
+          </div>
+        )}
+
         {isLoggedIn && user ? (
           <button
             onClick={handleDropdown}
-            className="flex gap-2 bg-interactive p-2 rounded-lg border border-border items-center hover:border-primary cursor-pointer hover:shadow-hover transition-all duration-300"
+            className="flex w-full gap-2 bg-interactive p-2 rounded-lg border border-border items-center hover:border-primary cursor-pointer hover:shadow-hover transition-all duration-300"
           >
             <div className="w-[50px] h-[50px] bg-primary rounded-full"></div>
             <div className="flex flex-col">
@@ -62,62 +90,21 @@ export default function Sidebar() {
             </div>
           </button>
         ) : (
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 w-full">
             <Link
               to="/login"
-              className="bg-interactive p-2 rounded-lg border border-border items-center hover:border-primary cursor-pointer hover:shadow-hover transition-all duration-300"
+              className="flex items-center gap-2 bg-interactive p-2 rounded-lg border border-border items-center hover:border-primary cursor-pointer hover:shadow-hover transition-all duration-300"
             >
+              <LogIn size={20} className="text-primary" />
               Login
             </Link>
             <Link
               to="/signup"
-              className="bg-interactive p-2 rounded-lg border border-border items-center hover:border-primary cursor-pointer hover:shadow-hover transition-all duration-300"
+              className="flex items-center gap-2 bg-interactive p-2 rounded-lg border border-border items-center hover:border-primary cursor-pointer hover:shadow-hover transition-all duration-300"
             >
+              <UserPlus size={20} className="text-primary" />
               Signup
             </Link>
-          </div>
-        )}
-
-        {/* Dropdown menu */}
-        {isDropdownOpen && (
-          <div className="absolute right-0 bottom-20 bg-iteractive p-2 w-48 rounded-md shadow-lg z-10">
-            <ul>
-              {isLoggedIn ? (
-                <>
-                   <Link to="/">
-                  <li className="bg-interactive mb-1 p-2 rounded-lg border border-border items-center hover:border-primary cursor-pointer hover:shadow-hover transition-all duration-300">
-                    Chat
-                  </li>
-                  </Link>
-                <Link to="/profile">
-                  <li className="bg-interactive mb-1 p-2 rounded-lg border border-border items-center hover:border-primary cursor-pointer hover:shadow-hover transition-all duration-300">
-                    Profile
-                  </li>
-                  </Link>
-                  <Link to="/settings">
-                  <li className="bg-interactive mb-1 p-2 rounded-lg border border-border items-center hover:border-primary cursor-pointer hover:shadow-hover transition-all duration-300">
-                    Settings
-                  </li>
-                  </Link>
-                  <li className="bg-interactive mb-1 p-2 rounded-lg border border-border items-center hover:border-primary cursor-pointer hover:shadow-hover transition-all duration-300">
-                    <button onClick={handleLogout}>Logout</button>
-                  </li>
-                </>
-              ) : (
-                <>
-                  <li className="bg-interactive mb-1 p-2 rounded-lg border border-border items-center hover:border-primary cursor-pointer hover:shadow-hover transition-all duration-300">
-                    <Link to="/login" className="block w-full h-full">
-                      Login
-                    </Link>
-                  </li>
-                  <li className="bg-interactive mb-1 p-2 rounded-lg border border-border items-center hover:border-primary cursor-pointer hover:shadow-hover transition-all duration-300">
-                    <Link to="/signup" className="block w-full h-full">
-                      Sign Up
-                    </Link>
-                  </li>
-                </>
-              )}
-            </ul>
           </div>
         )}
       </div>

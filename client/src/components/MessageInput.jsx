@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
-import arrow from "../assets/arrow.svg";
 import EmojiPicker from "emoji-picker-react";
 import emoji from "../assets/emoji.svg";
 import { ADD_POST } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
+import { Send } from "lucide-react";
 
 const MessageInput = ({ sendMessage, disabled, userId }) => {
   const [message, setMessage] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
-  const [addPost, { error, loading, data }] = useMutation(ADD_POST) //
-
+  const [addPost, { error, loading, data }] = useMutation(ADD_POST); //
 
   const handleMessageChange = (event) => {
     setMessage(event.target.value);
@@ -19,12 +18,12 @@ const MessageInput = ({ sendMessage, disabled, userId }) => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (message.trim() === "") return;
-    console.log(userId)
+    console.log(userId);
     await addPost({
       variables: {
         comment: message,
-        profileId: userId
-      }
+        profileId: userId,
+      },
     });
     sendMessage(message);
     setMessage("");
@@ -33,12 +32,12 @@ const MessageInput = ({ sendMessage, disabled, userId }) => {
 
   const handleEmojiSelect = (emoji, emojiObject) => {
     console.log("emojiObject:", emojiObject);
-    setMessage(message + (emojiObject.emoji));
-  }
+    setMessage(message + emojiObject.emoji);
+  };
 
   const toggleEmojiPicker = () => {
     setShowEmojiPicker(!showEmojiPicker);
-  }
+  };
 
   return (
     <form
@@ -69,8 +68,8 @@ const MessageInput = ({ sendMessage, disabled, userId }) => {
             type="button"
             onClick={toggleEmojiPicker}
             className="bg-transparent p-2 rounded-lg hover:shadow-hover hover:shadow-primary transition-all duration-300 ease-in-out"
-            >
-              <img src={emoji} alt="emoji" />
+          >
+            <img src={emoji} alt="emoji" />
           </button>
           {showEmojiPicker && (
             <div className="absolute bottom-28 right-6 z-10">
@@ -81,7 +80,7 @@ const MessageInput = ({ sendMessage, disabled, userId }) => {
             type="submit"
             className="bg-primary p-2 rounded-lg hover:shadow-hover hover:shadow-primary transition-all duration-300 ease-in-out"
           >
-            <img src={arrow} alt="submit" />
+            <Send />
           </button>
         </>
       )}
