@@ -13,7 +13,7 @@ const db = require('./config/connection');
 // App Config
 const allowedOrigins = ['http://localhost:3000', 'https://yourdomain.com'];
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 app.use(express.json());
 // app.use(cors({
 //   origin: function(origin, callback){
@@ -25,6 +25,9 @@ app.use(express.json());
 //   }
 // }));
 app.use(cors())
+app.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT}`)
+})
 
 const apolloServer = new ApolloServer({ typeDefs, resolvers });
 
