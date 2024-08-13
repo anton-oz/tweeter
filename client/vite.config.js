@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 3002;
 export default defineConfig({
   plugins: [react()],
   define: {
-    global: "window",
+    // global: "window",
   },
   server: {
     port: 3000,
