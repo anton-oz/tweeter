@@ -13,6 +13,7 @@ const db = require('./config/connection');
 // App Config
 const allowedOrigins = ['http://localhost:3000', 'https://yourdomain.com'];
 const app = express();
+const PORT = process.env.PORT || 3001;
 app.use(express.json());
 // app.use(cors({
 //   origin: function(origin, callback){
