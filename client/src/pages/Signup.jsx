@@ -5,6 +5,8 @@ import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../utils/mutations";
 
 import Auth from "../utils/auth";
+import { UserPlus } from "lucide-react";
+import { Link } from "react-router-dom";
 
 function Signup() {
   const [formState, setFormState] = useState({
@@ -44,11 +46,13 @@ function Signup() {
     });
   };
   return (
-    <div className="bg-bgSecondary border border-border rounded-lg p-8 flex flex-col gap-8">
-      <div className="flex flex-col gap-2">
-        <h2 className="text-3xl font-bold tracking-tight flex items-center gap-2">
-          <img src={logo} alt="tweeter logo" />
-          Tweeter
+    <div className="bg-bgSecondary border border-border rounded-lg p-8 flex flex-col gap-8 w-[530px]">
+      <div className="flex flex-col gap-2 w-full">
+        <h2 className="text-3xl font-bold tracking-tight">
+          <Link to="/" className="cursor-pointer flex items-center gap-2">
+            <img src={logo} alt="tweeter logo" />
+            Tweeter
+          </Link>
         </h2>
         <p className="text-sm text-textSecondary">
           Join Tweeter today—connect, chat, and grow with vibrant communities!
@@ -82,11 +86,18 @@ function Signup() {
         <div>
           <button
             type="submit"
-            className="bg-interactive border border-border px-8 py-2 mt-4 text-text rounded-lg hover:shadow-hover hover:shadow-primary transition-all duration-300 ease-in-out"
+            className="flex items-center gap-3 bg-interactive border border-border px-4 py-2 mt-4 text-text rounded-lg hover:shadow-hover hover:shadow-primary transition-all duration-300 ease-in-out"
           >
-            Sign Up
+            <UserPlus size={20} className="text-primary" />
+            Signup
           </button>
         </div>
+        <p className="text-sm text-textSecondary">
+          Already have an account?{" "}
+          <Link to="/login" className="text-primary">
+            Log in
+          </Link>
+        </p>
       </form>
     </div>
   );
