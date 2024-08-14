@@ -2,10 +2,10 @@ import { createContext, useContext, useReducer } from 'react';
 import io from "socket.io-client";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
-const socket = io.connect("http://localhost:3001");
+const socket = process.env.NODE_ENV === 'production' ? 'https://tweeter-4z96.onrender.com/' : io.connect("http://localhost:3001");
 
 const client = new ApolloClient({
-    uri: 'http://localhost:3001/graphql',
+    uri: process.env.NODE_ENV ==='production' ? 'https://tweeter-4z96.onrender.com/graphql' : 'http://localhost:3001/graphql',
     cache: new InMemoryCache()
 })
 
