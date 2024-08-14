@@ -11,6 +11,7 @@ const { typeDefs, resolvers } = require('./schemas');
 // Database 
 const { Question } = require('./models')
 const db = require('./config/connection');
+const { error } = require('console');
 // App Config
 const allowedOrigins = ['http://localhost:3000', 'https://yourdomain.com'];
 const app = express();
@@ -21,7 +22,6 @@ app.use(cors({
 })); // set up cors to only allow from deployed site url
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
-
 
 // test without this
 app.get('*', (req, res) => {
@@ -114,3 +114,21 @@ async function startApolloServer() {
 };
 
 startApolloServer();
+
+// code to prevent render deploy server spindown
+if(process.env.NODE_ENV === 'production') {
+  const url = 'https://tweeter-4z96.onrender.com';
+  const interval = 60 * 1000 * 5; // 5 minutes
+  const reloadSite = () => {
+    fetch(url)
+      .then(res => {
+        console.log(`reloaded at ${new Date().toISOString()}: status ${res.status}`);
+      })
+      .catch(err => {
+        console.error(`error at ${new Date().toISOString}`, err.message);
+      });
+  };
+  setTimeout(() => {
+    setInterval(reloadSite, interval)
+  }, interval);
+};
