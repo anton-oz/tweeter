@@ -8,6 +8,8 @@ import Auth from "../utils/auth";
 import { UserPlus } from "lucide-react";
 import { Link } from "react-router-dom";
 
+import Avatar from 'boring-avatars';
+
 function Signup() {
   const [formState, setFormState] = useState({
     username: "",
