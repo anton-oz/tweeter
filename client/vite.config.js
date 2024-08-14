@@ -20,7 +20,7 @@ if (process.env.NODE_ENV && process.env.NODE_ENV === "production") {
     open: true,
     proxy: {
       "/graphql": {
-        target: `http://localhost:${PORT}`,
+        target: process.env.NODE_ENV === 'production' ? 'https://tweeter-4z96.onrender.com/': `http://localhost:${PORT}`,
         secure: false,
         changeOrigin: true,
       },
