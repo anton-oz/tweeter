@@ -25,9 +25,9 @@ app.use(express.json());
 //   }
 // }));
 app.use(cors())
-app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`)
-})
+// app.listen(3001, () => {
+//   console.log(`Example app listening on port ${PORT}`)
+// })
 
 const apolloServer = new ApolloServer({ typeDefs, resolvers });
 
