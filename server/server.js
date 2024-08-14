@@ -16,7 +16,9 @@ const allowedOrigins = ['http://localhost:3000', 'https://yourdomain.com'];
 const app = express();
 const PORT = process.env.PORT || 3002;
 app.use(express.json());
-app.use(cors()); // set up cors to only allow from deployed site url
+app.use(cors({
+  origin: process.env.NODE_ENV === 'production' ? 'https://tweeter-4z96.onrender.com' : 'http://localhost:3000'
+})); // set up cors to only allow from deployed site url
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
@@ -68,7 +70,7 @@ async function startApolloServer() {
   // Question Timer
   let currentQuestionIndex = 0; // index on server start
 
-  const questionInterval = 15 * 1000 // 15 seconds, change to something more reasonable in production
+  const questionInterval = 15 * 1000; // 15 seconds, change to something more reasonable in production
 
   function startQuestionInterval() {
     setInterval(() => {
