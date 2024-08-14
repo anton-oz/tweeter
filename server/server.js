@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require("express");
+const path = require('path')
 const http = require("http");
 const { Server } = require("socket.io");
 const cors = require("cors");
@@ -15,19 +16,16 @@ const allowedOrigins = ['http://localhost:3000', 'https://yourdomain.com'];
 const app = express();
 const PORT = process.env.PORT || 3002;
 app.use(express.json());
-// app.use(cors({
-//   origin: function(origin, callback){
-//     if (allowedOrigins.indexOf(origin) !== -1) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error('Not allowed by CORS'));
-//     }
-//   }
-// }));
-app.use(cors())
-// app.listen(3001, () => {
-//   console.log(`Example app listening on port ${PORT}`)
-// })
+app.use(cors()); // set up cors to only allow from deployed site url
+
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
+
+// test without this
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist', 'index.html'))
+});
+
 
 const apolloServer = new ApolloServer({ typeDefs, resolvers });
 
