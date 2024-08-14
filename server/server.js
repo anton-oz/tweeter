@@ -51,7 +51,7 @@ async function startApolloServer() {
 
   const io = new Server(server, {
     cors: {
-      // origin: "http://localhost:3000", // Replace with your client URL
+      origin: process.env.NODE_ENV === 'production' ? 'https://https://tweeter-4z96.onrender.com/' : "http://localhost:3000", // Replace with your client URL
       methods: ["GET", "POST"]
     }
   });
