@@ -8,7 +8,7 @@ import Auth from "../utils/auth";
 import { UserPlus } from "lucide-react";
 import { Link } from "react-router-dom";
 
-import Avatar from 'boring-avatars';
+import AvatarComponent from '../components/Avatar.jsx';
 
 function Signup() {
   const [formState, setFormState] = useState({
@@ -85,6 +85,7 @@ function Signup() {
           onChange={handleChange}
           placeholder="password..."
         />
+        <AvatarComponent />
         <div>
           <button
             type="submit"
