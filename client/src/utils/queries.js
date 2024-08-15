@@ -14,19 +14,10 @@ export const GET_PROFILE = gql`
       _id
       username
       email
+      avatar
     }
   }
 `;
-
-export const GET_PROFILE_USERNAME = gql`
-  query getProfileUsername($username: String!) {
-    profile(username: $username) {
-      _id
-      username
-      email
-    }
-  }
-`
 
 export const GET_POSTS = gql`
   query getPosts {
@@ -37,6 +28,7 @@ export const GET_POSTS = gql`
         _id
         username
         email
+        avatar
       }
     }
   }

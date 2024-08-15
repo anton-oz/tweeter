@@ -18,6 +18,11 @@ export default function TweeterChat({ socket }) {
 
   // get all posts from db
   const { loading, data, error } = useQuery(GET_POSTS);
+
+  useEffect(() => {
+    console.log('posts', posts)
+  }, [posts])
+
   // display posts from db
   useEffect(() => {
     if (data && data.getPosts) {
@@ -67,7 +72,7 @@ export default function TweeterChat({ socket }) {
     socket.emit("send_message", {
       message,
       room,
-      user: { name: user.data.username, avatar: "" },
+      user: { name: user.data.username, avatar: JSON.parse(user.data.avatar) },
     });
   };
 
@@ -83,16 +88,15 @@ export default function TweeterChat({ socket }) {
               key={i}
               user={post.profile.username}
               message={{ message: post.comment }}
+              avatar={JSON.parse(post.profile.avatar)}
             />
           ))}
           {posts.map((post, i) => (
             <Post
               key={i}
               user={postUser[i]}
-              message={{
-                user: user?.data.username || "username error",
-                message: post.message,
-              }}
+              message={{ user: user?.data.username || 'username error', message: post.message }}
+              avatar={post.user.avatar}
             />
           ))}
         </div>

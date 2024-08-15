@@ -1,6 +1,10 @@
 import React from "react";
 
-export default function Post({ user, message }) {
+
+import AvatarComponent from "./Avatar";
+
+export default function Post({ user, message, avatar }) {
+
   return (
     <div className="flex gap-2">
       {/* user profile pic */}
@@ -11,7 +15,8 @@ export default function Post({ user, message }) {
       /> */}
       {/* placeholder profile pic */}
       <div>
-        <div className="w-[50px] h-[50px] bg-primary rounded-full"></div>
+        {/* <div className="w-[50px] h-[50px] bg-primary rounded-full"></div> */}
+        <AvatarComponent settings={avatar}/>
       </div>
       <div className="flex flex-col gap-1">
         {/* user name */}

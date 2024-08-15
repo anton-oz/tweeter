@@ -25,15 +25,11 @@ const resolvers = {
         console.log("error finding posts");
       }
     },
-
-    getProfileUsername: async (parent, { username }) => {
-      return await Profile.findOne({ username });
-    },
   },
 
   Mutation: {
-    addProfile: async (parent, { username, email, password }) => {
-      const profile = await Profile.create({ username, email, password });
+    addProfile: async (parent, { username, email, password, avatar }) => {
+      const profile = await Profile.create({ username, email, password, avatar });
       const token = signToken(profile);
 
       return { token, profile };

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import logo from "../assets/logo.svg";
 
 import { useMutation } from "@apollo/client";
@@ -9,13 +9,27 @@ import { UserPlus } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import AvatarComponent from '../components/Avatar.jsx';
+import { AvatarContext } from "../context/AvatarContext.jsx";
 
 function Signup() {
+  // Avatar context
+  const {
+      avatarName,
+      avatarVariant,
+      avatarColor
+  } = useContext(AvatarContext);
+
   const [formState, setFormState] = useState({
     username: "",
     email: "",
     password: "",
+    avatar: JSON.stringify({
+      avatarName,
+      avatarVariant,
+      avatarColor
+    })
   });
+
   const [addProfile, { error, data }] = useMutation(ADD_USER);
 
   const handleChange = (event) => {
@@ -27,13 +41,27 @@ function Signup() {
     });
   };
 
+  // update avatar for form
+  useEffect(() => {
+    setFormState({
+      ...formState,
+      avatar: JSON.stringify({
+        avatarName,
+        avatarVariant,
+        avatarColor
+      })
+    });
+  }, [avatarName, avatarVariant]);
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     console.log(formState);
-
+  
     try {
       const { data } = await addProfile({
-        variables: { ...formState },
+        variables: { 
+          ...formState,
+        },
       });
 
       Auth.login(data.addProfile.token);
@@ -45,6 +73,7 @@ function Signup() {
       username: "",
       email: "",
       password: "",
+      avatar: "",
     });
   };
   return (

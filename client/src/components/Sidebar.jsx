@@ -5,14 +5,11 @@ import { GET_PROFILE } from "../utils/queries";
 import AuthService from "../utils/auth";
 import logo from "../assets/logo.svg";
 
-import {
-  LogIn,
-  LogOut,
-  Menu,
-  MessageSquare,
-  Settings,
-  UserPlus,
-} from "lucide-react";
+
+import AvatarComponent from "./Avatar";
+
+import { LogIn, LogOut, MessageSquare, Settings, UserPlus } from "lucide-react";
+
 
 export default function Sidebar() {
   // get user info
@@ -96,25 +93,28 @@ export default function Sidebar() {
                       <LogOut size={20} className="text-primary" />
                       <button onClick={handleLogout}>Logout</button>
                     </li>
-                  </>
-                )}
-              </ul>
-            </div>
-          )}
+                </>
+              )}
+            </ul>
+          </div>
+        )}
 
-          {isLoggedIn && user ? (
-            <button
-              onClick={handleDropdown}
-              className="flex w-full gap-2 bg-interactive p-2 rounded-lg border border-border items-center hover:border-primary cursor-pointer hover:shadow-hover transition-all duration-300"
-            >
-              <div className="w-[50px] h-[50px] bg-primary rounded-full"></div>
-              <div className="flex flex-col">
-                <h2 className="font-bold text-left">{user.data.username}</h2>
-                <span className="text-textSecondary text-sm">
-                  {user.data.email}
-                </span>
-              </div>
-            </button>
+        {isLoggedIn && user ? (
+          <button
+            onClick={handleDropdown}
+            className="flex w-full gap-2 bg-interactive p-2 rounded-lg border border-border items-center hover:border-primary cursor-pointer hover:shadow-hover transition-all duration-300"
+          >
+            {/* <div className="w-[50px] h-[50px] bg-primary rounded-full"></div> */}
+            <AvatarComponent settings={JSON.parse(user.data.avatar)}/>
+            <div className="flex flex-col">
+              <h2 className="font-bold text-left">{user.data.username}</h2>
+              <span className="text-textSecondary text-sm">
+                {user.data.email}
+              </span>
+
+
+            </div>
+          </button>
           ) : (
             <div className="flex flex-col gap-2 w-full">
               <Link
