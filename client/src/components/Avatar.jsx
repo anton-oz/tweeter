@@ -4,7 +4,7 @@ import { useState } from "react";
 export default function AvatarComponent({ display, signup }) {
 
     const [avatarKey, setAvatarKey] = useState(1);
-    const [selectedVariant, setSelectedVariant] = useState('beam')
+    const [selectedVariant, setSelectedVariant] = useState('beam');
 
     const refreshAvatar = () => {
         setAvatarKey(prev => prev + 1);
@@ -16,12 +16,9 @@ export default function AvatarComponent({ display, signup }) {
 
     const handleOption = (e) => {
         setSelectedVariant(e.target.value)
-    }
+    };
 
-    const colors = [
-        ['#403369', '#5C5992', '#AE93BE', '#B4DAE5', '#F0D77B'], // ghibli colors
-        ['#1df097', '#ffffff'] // tweeter colors
-    ];
+    const colors = ['#1df097', '#ffffff']; // tweeter colors
 
     const names = [
         'Mary Baker', 'Amelia Earhart', 'Mary Roebling', 'Sarah Winnemucca', 'Margaret Brent', 'Lucy Stone', 'Mary Edwards', 'Margaret Chase', 'Mahalia Jackson',
@@ -32,6 +29,9 @@ export default function AvatarComponent({ display, signup }) {
         'Wilma Rudolph', 'Annie Jump', 'Mother Frances', 'Jovita Idár', 'Maggie L', 'Henrietta Swan', 'Jane Cunningham', 'Victoria Woodhull', 'Helen Keller'
     ];
 
+    const [avatarName, setAvatarName] = useState(randomIndex(names));
+
+    // return for signup form
     return (
         <div className="flex flex-col items-center justify-center w-100">
             
@@ -43,26 +43,23 @@ export default function AvatarComponent({ display, signup }) {
                     id="avatarBtn"
                 >
                     <Avatar 
+                        size={50}
                         key={avatarKey} 
                         name={names[randomIndex(names)]} 
-                        colors={colors[1]} 
+                        colors={colors} 
                         variant={selectedVariant}
                     />
                 </button>
                 <select 
-                    className=""
+                    className="ml-2 text-center bg-interactive border border-border p-3 rounded-lg hover:shadow-hover hover:shadow-primary transition-all duration-300 ease-in-out focus:outline-none inline-block"
                     value={selectedVariant} 
                     onChange={handleOption}
                 >
                     <option value="beam">beam</option>
-                    <option value="marble">marble</option>
                     <option value="pixel">pixel</option>
-                    <option value="sunset">sunset</option>
-                    <option value="ring">ring</option>
                     <option value="bauhaus">bauhaus</option>
                 </select>
             </div>
         </div>
     )
-
-}
+};

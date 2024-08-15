@@ -29,7 +29,10 @@ const profileSchema = new Schema({
     type: String,
     required: true,
     minlength: 5,
-  }
+  },
+  avatar: {
+    type: String,
+  },
 });
 // set up pre-save middleware to create password
 profileSchema.pre('save', async function (next) {
