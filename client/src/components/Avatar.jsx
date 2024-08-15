@@ -1,13 +1,20 @@
 import Avatar from "boring-avatars"
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
+import { AvatarContext } from "../context/AvatarContext";
 
-export default function AvatarComponent({ display, signup }) {
+export default function AvatarComponent({ settings }) {
 
-    const [avatarKey, setAvatarKey] = useState(1);
-    const [selectedVariant, setSelectedVariant] = useState('beam');
+    const {
+        avatarName,
+        avatarVariant,
+        avatarColor,
+        updateAvatarName,
+        updateAvatarVariant
+    } = useContext(AvatarContext);
 
     const refreshAvatar = () => {
-        setAvatarKey(prev => prev + 1);
+        // setAvatarName(names[randomIndex(names)]);
+        updateAvatarName(names[randomIndex(names)]);
     };
 
     const randomIndex = (array) => {
@@ -15,10 +22,9 @@ export default function AvatarComponent({ display, signup }) {
     };
 
     const handleOption = (e) => {
-        setSelectedVariant(e.target.value)
+        // setAvatarVariant(e.target.value)
+        updateAvatarVariant(e.target.value)
     };
-
-    const colors = ['#1df097', '#ffffff']; // tweeter colors
 
     const names = [
         'Mary Baker', 'Amelia Earhart', 'Mary Roebling', 'Sarah Winnemucca', 'Margaret Brent', 'Lucy Stone', 'Mary Edwards', 'Margaret Chase', 'Mahalia Jackson',
@@ -29,14 +35,31 @@ export default function AvatarComponent({ display, signup }) {
         'Wilma Rudolph', 'Annie Jump', 'Mother Frances', 'Jovita Idár', 'Maggie L', 'Henrietta Swan', 'Jane Cunningham', 'Victoria Woodhull', 'Helen Keller'
     ];
 
-    const [avatarName, setAvatarName] = useState(randomIndex(names));
+    useEffect(() => {
+        updateAvatarName(names[0]);
+    }, []);
+
+    if (settings) {
+        const {
+            avatarName,
+            avatarVariant,
+            avatarColor
+        } = settings
+        return (
+            <Avatar
+                name={avatarName}
+                variant={avatarVariant}
+                colors={avatarColor}
+            />
+        )
+    }
 
     // return for signup form
     return (
         <div className="flex flex-col items-center justify-center w-100">
             
             <div className="flex flex-row items-center justify-center">
-                <button 
+                <button
                     className="hover:shadow-hover hover:shadow-primary rounded-full p-[0.5px] transition-all duration-300 ease-in-out"
                     onClick={refreshAvatar}     
                     type="button" 
@@ -44,15 +67,14 @@ export default function AvatarComponent({ display, signup }) {
                 >
                     <Avatar 
                         size={50}
-                        key={avatarKey} 
-                        name={names[randomIndex(names)]} 
-                        colors={colors} 
-                        variant={selectedVariant}
+                        name={avatarName} 
+                        colors={avatarColor} 
+                        variant={avatarVariant}
                     />
                 </button>
                 <select 
                     className="ml-2 text-center bg-interactive border border-border p-3 rounded-lg hover:shadow-hover hover:shadow-primary transition-all duration-300 ease-in-out focus:outline-none inline-block"
-                    value={selectedVariant} 
+                    value={avatarVariant} 
                     onChange={handleOption}
                 >
                     <option value="beam">beam</option>

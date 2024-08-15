@@ -28,14 +28,12 @@ const typeDefs = `
     question: [Question]
     profile(profileId: ID!): Profile
     getPosts: [Post]
-    getProfileUsername(username: String!): Profile
   }
 
   type Mutation {
-    addProfile(username: String!, email: String!, password: String!): Auth
+    addProfile(username: String!, email: String!, password: String!, avatar: String): Auth
     login(email: String!, password: String!): Auth
     addPost(comment: String!, profileId: ID!): Post
-    
     removeProfile(profileId: ID!): Profile
   }
 `;

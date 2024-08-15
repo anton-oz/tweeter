@@ -34,8 +34,8 @@ module.exports = {
     // return the request object so it can be passed to the resolver as `context`
     return req;
   },
-  signToken: function ({ email, username, _id }) {
-    const payload = { email, username, _id };
+  signToken: function ({ email, username, _id, avatar }) {
+    const payload = { email, username, _id, avatar };
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
   },
 };

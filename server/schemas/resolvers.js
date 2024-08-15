@@ -26,10 +26,6 @@ const resolvers = {
         console.log('error finding posts')
       }
     },
-
-    getProfileUsername: async (parent, { username }) => {
-      return await Profile.findOne({ username });
-    }
   },
 
   Mutation: {

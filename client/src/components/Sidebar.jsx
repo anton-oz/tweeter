@@ -5,6 +5,8 @@ import { GET_PROFILE } from "../utils/queries";
 import AuthService from "../utils/auth";
 import logo from "../assets/logo.svg";
 
+import AvatarComponent from "./Avatar";
+
 import { LogIn, LogOut, MessageSquare, Settings, UserPlus } from "lucide-react";
 
 export default function Sidebar() {
@@ -81,7 +83,8 @@ export default function Sidebar() {
             onClick={handleDropdown}
             className="flex w-full gap-2 bg-interactive p-2 rounded-lg border border-border items-center hover:border-primary cursor-pointer hover:shadow-hover transition-all duration-300"
           >
-            <div className="w-[50px] h-[50px] bg-primary rounded-full"></div>
+            {/* <div className="w-[50px] h-[50px] bg-primary rounded-full"></div> */}
+            <AvatarComponent settings={JSON.parse(user.data.avatar)}/>
             <div className="flex flex-col">
               <h2 className="font-bold text-left">{user.data.username}</h2>
               <span className="text-textSecondary text-sm">

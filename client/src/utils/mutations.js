@@ -33,6 +33,7 @@ export const ADD_POST = gql`
       profile {
         _id
         username
+        avatar
       }
     }
   }
