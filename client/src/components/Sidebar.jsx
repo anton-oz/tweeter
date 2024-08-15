@@ -18,7 +18,7 @@ export default function Sidebar() {
   //   skip: !user?._id, // Skip if user ID is not available
   // });
 
-  console.log(AuthService.loggedIn());
+  // console.log(AuthService.loggedIn());
 
   useEffect(() => {
     if (AuthService.loggedIn()) {
@@ -38,6 +38,7 @@ export default function Sidebar() {
 
   const handleLogout = () => {
     AuthService.logout();
+    window.location.replace("/");
   };
 
   return (

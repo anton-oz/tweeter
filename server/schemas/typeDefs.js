@@ -34,6 +34,8 @@ const typeDefs = `
     addProfile(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     addPost(comment: String!, profileId: ID!): Post
+
+    updateProfile(profileId: ID!, username: String, email: String, password: String): Profile
     
     removeProfile(profileId: ID!): Profile
   }
