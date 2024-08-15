@@ -53,7 +53,7 @@ const MessageInput = ({ sendMessage, disabled, userId }) => {
   return (
     <form
       onSubmit={handleFormSubmit}
-      className="flex gap-4 bg-interactive py-4 px-6 rounded-lg border border-border"
+      className="flex gap-6 bg-interactive py-4 px-6 rounded-lg border border-border h-[70px]"
     >
       {disabled ? (
         <>
@@ -75,24 +75,19 @@ const MessageInput = ({ sendMessage, disabled, userId }) => {
             placeholder="Type a message according to the topic"
             className="w-full bg-transparent focus:outline-none"
           />
-          <button
-            type="button"
-            onClick={toggleEmojiPicker}
-            className="bg-transparent p-2 rounded-lg hover:shadow-hover hover:shadow-primary transition-all duration-300 ease-in-out"
-          >
+          <button type="button" onClick={toggleEmojiPicker} className="">
             <img src={emoji} alt="emoji" />
           </button>
           {showEmojiPicker && (
-            <div className="absolute bottom-28 right-6 z-10">
-              <EmojiPicker onEmojiClick={handleEmojiSelect} />
+            <div className="absolute bottom-28 right-8 z-10">
+              <EmojiPicker
+                onEmojiClick={handleEmojiSelect}
+                pickerStyle={{ boxShadow: "0" }}
+              />
             </div>
           )}
-          <button
-            type="submit"
-            className="bg-primary p-2 rounded-lg hover:shadow-hover hover:shadow-primary transition-all duration-300 ease-in-out"
-            id="submitBtn"
-          >
-            <Send />
+          <button type="submit" className="" id="submitBtn">
+            <Send className="hover:text-primary transition-all duration-300" />
           </button>
         </>
       )}

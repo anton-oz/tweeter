@@ -17,19 +17,18 @@ const resolvers = {
 
     getPosts: async () => {
       try {
-        const posts = await Post.find().populate('profile')
-        if (!posts) return {error: 'no posts'}
-        return posts
-      }
-      catch (err) {
-        console.error(err)
-        console.log('error finding posts')
+        const posts = await Post.find().populate("profile");
+        if (!posts) return { error: "no posts" };
+        return posts;
+      } catch (err) {
+        console.error(err);
+        console.log("error finding posts");
       }
     },
 
     getProfileUsername: async (parent, { username }) => {
       return await Profile.findOne({ username });
-    }
+    },
   },
 
   Mutation: {
@@ -58,17 +57,45 @@ const resolvers = {
       return { token, profile };
     },
     removeProfile: async (parent, { profileId }) => {
-      return Profile.findOneAndDelete({ _id: profileId });
+      const deletedProfile = await Profile.findOneAndDelete({ _id: profileId });
+      if (!deletedProfile) {
+        throw new Error("Profile not found");
+      }
+      return deletedProfile;
     },
-    addPost: async (parent, {comment, profileId}) => {
+    updateProfile: async (parent, { profileId, username, email, password }) => {
+      // const updatedProfile = await Profile.findByIdAndUpdate(
+      //   profileId,
+      //   {
+      //     ...(username && { username }),
+      //     ...(email && { email }),
+      //     ...(password && { password }),
+      //   },
+      //   { new: true, runValidators: true }
+      // );
+
+      const updatedProfile = await Profile.findById(profileId);
+      updatedProfile.username = username;
+      updatedProfile.email = email;
+      updatedProfile.password = password;
+      updatedProfile.save();
+      const token = signToken(updatedProfile);
+
+      if (!updatedProfile) {
+        throw new Error("Profile not found");
+      }
+
+      return { token, updatedProfile };
+    },
+    addPost: async (parent, { comment, profileId }) => {
       const user = await Profile.findById(profileId);
       if (!profileId) {
-        throw new Error('User not found!')
-      };
+        throw new Error("User not found!");
+      }
 
       const post = await Post.create({ comment, profile: user._id });
-      return await Post.findById(post._id).populate('profile');
-    }
+      return await Post.findById(post._id).populate("profile");
+    },
   },
 };
 
