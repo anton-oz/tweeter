@@ -32,7 +32,7 @@ export default function Question({ room }) {
   }, [socket]);
 
   return (
-    <div className="mb-auto mx-auto mt-20 py-4 px-6 bg-interactive border border-border rounded-lg">
+    <div className="mb-auto mx-auto mt-20 py-2 md:py-4 px-4 md:px-6 bg-interactive border border-border rounded-lg">
       <h1 className="flex gap-4 items-center font-bold text-lg">
         <img src={logo} alt="logo" />
         {loading ? "loading..." : currentQuestion ? currentQuestion : "error"}

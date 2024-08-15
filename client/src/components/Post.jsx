@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function Post({ user, message }) {
-
   return (
     <div className="flex gap-2">
       {/* user profile pic */}
@@ -18,7 +17,9 @@ export default function Post({ user, message }) {
         {/* user name */}
         <h3 className="font-bold flex gap-2 items-center">{user}</h3>
         {/* user message */}
-        <p className="text-text2">{message.message}</p>
+        <p className="text-text2" style={{ overflowWrap: "anywhere" }}>
+          {message.message}
+        </p>
       </div>
     </div>
   );
