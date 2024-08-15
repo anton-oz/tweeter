@@ -34,7 +34,7 @@ const MessageInput = ({ sendMessage, disabled, userId }) => {
     setMessage("");
     setShowEmojiPicker(false);
     // message timeout
-    const btn = document.getElementById('submitBtn');
+    const btn = document.getElementById("submitBtn");
     btn.disabled = true;
     setTimeout(() => {
       btn.disabled = false;

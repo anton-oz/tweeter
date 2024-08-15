@@ -21,20 +21,19 @@ export default function TweeterChat({ socket }) {
   // display posts from db
   useEffect(() => {
     if (data && data.getPosts) {
-      console.log(data.getPosts)
-      setDbPosts(data.getPosts)
+      console.log(data.getPosts);
+      setDbPosts(data.getPosts);
     }
   }, [data]);
 
-  
   const postsRef = useRef(null);
 
   useEffect(() => {
     postsRef.current.scrollIntoView({
-      block: 'end'
-    })
-  }, [posts, dbPosts])
-  
+      block: "end",
+    });
+  }, [posts, dbPosts]);
+
   useEffect(() => {
     if (AuthService.loggedIn()) {
       const userProfile = AuthService.getProfile();
@@ -56,7 +55,7 @@ export default function TweeterChat({ socket }) {
 
   useEffect(() => {
     socket.on("receive_message", (data) => {
-      setPostUser((prevUsers) => [...prevUsers, data.user.name])
+      setPostUser((prevUsers) => [...prevUsers, data.user.name]);
       setPosts((prevPosts) => [...prevPosts, data]);
     });
     return () => {
@@ -73,12 +72,14 @@ export default function TweeterChat({ socket }) {
   };
 
   return (
-    <main className="pl-[17.75rem] p-8 flex flex-col gap-8 h-screen justify-end w-screen">
+    <main className="md:pl-[17.75rem] p-2 md:p-8 flex flex-col gap-8 h-screen justify-end w-screen">
       <Question room={room} />
-      <div className="overflow-y-auto " > {/* Comment Container */}
+      <div className="overflow-y-auto ">
+        {" "}
+        {/* Comment Container */}
         <div className="flex flex-col gap-4" ref={postsRef}>
           {dbPosts.map((post, i) => (
-            <Post 
+            <Post
               key={i}
               user={post.profile.username}
               message={{ message: post.comment }}
@@ -88,13 +89,19 @@ export default function TweeterChat({ socket }) {
             <Post
               key={i}
               user={postUser[i]}
-              message={{ user: user?.data.username || 'username error', message: post.message }}
+              message={{
+                user: user?.data.username || "username error",
+                message: post.message,
+              }}
             />
           ))}
         </div>
       </div>
       {AuthService.loggedIn() ? (
-        <MessageInput sendMessage={sendMessage} userId={user ? user?.data._id : ''} />
+        <MessageInput
+          sendMessage={sendMessage}
+          userId={user ? user?.data._id : ""}
+        />
       ) : (
         <MessageInput sendMessage={sendMessage} disabled={true} />
       )}
