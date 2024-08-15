@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.14",
+    "bad-words": "^3.0.4",
     "bcrypt": "^5.1.1",
     "boring-avatars": "^1.10.2",
     "emoji-picker-react": "^3.5.1",
