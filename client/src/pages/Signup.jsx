@@ -8,7 +8,7 @@ import Auth from "../utils/auth";
 import { UserPlus } from "lucide-react";
 import { Link } from "react-router-dom";
 
-import Avatar from 'boring-avatars';
+import Avatar from "boring-avatars";
 
 function Signup() {
   const [formState, setFormState] = useState({
@@ -48,7 +48,7 @@ function Signup() {
     });
   };
   return (
-    <div className="bg-bgSecondary border border-border rounded-lg p-8 flex flex-col gap-8 w-[530px]">
+    <div className="bg-bgSecondary border border-border rounded-lg p-8 flex flex-col gap-8 md:w-[530px] mx-4">
       <div className="flex flex-col gap-2 w-full">
         <h2 className="text-3xl font-bold tracking-tight">
           <Link to="/" className="cursor-pointer flex items-center gap-2">

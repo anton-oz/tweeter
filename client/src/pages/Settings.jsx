@@ -92,7 +92,7 @@ const Settings = () => {
   return (
     <div>
       <Sidebar />
-      <main className="pl-[17.75rem] p-8 flex flex-col h-screen w-screen">
+      <main className="md:pl-[17.75rem] p-2 md:p-8 mt-40 md:mt-0 flex flex-col h-screen w-screen">
         {isLoggedIn ? (
           <>
             <h2 className="text-2xl tracking-tight">Settings:</h2>
