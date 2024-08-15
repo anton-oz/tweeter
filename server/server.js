@@ -23,7 +23,6 @@ app.use(cors({
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-// test without this
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist', 'index.html'))
 });
@@ -70,7 +69,7 @@ async function startApolloServer() {
   // Question Timer
   let currentQuestionIndex = 0; // index on server start
 
-  const questionInterval = 15 * 1000; // 15 seconds, change to something more reasonable in production
+  const questionInterval = 60 * 1000; // 15 seconds, change to something more reasonable in production
 
   function startQuestionInterval() {
     setInterval(() => {
@@ -116,7 +115,7 @@ async function startApolloServer() {
 startApolloServer();
 
 // code to prevent render deploy server spindown
-if(process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
   const url = 'https://tweeter-4z96.onrender.com';
   const interval = 60 * 1000 * 5; // 5 minutes
   const reloadSite = () => {

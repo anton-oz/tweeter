@@ -28,6 +28,12 @@ const MessageInput = ({ sendMessage, disabled, userId }) => {
     sendMessage(message);
     setMessage("");
     setShowEmojiPicker(false);
+    // message timeout
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.disabled = false;
+    }, 1000);
   };
 
   const handleEmojiSelect = (emoji, emojiObject) => {
@@ -79,6 +85,7 @@ const MessageInput = ({ sendMessage, disabled, userId }) => {
           <button
             type="submit"
             className="bg-primary p-2 rounded-lg hover:shadow-hover hover:shadow-primary transition-all duration-300 ease-in-out"
+            id="submitBtn"
           >
             <Send />
           </button>
