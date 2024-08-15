@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require("express");
+const path = require('path')
 const http = require("http");
 const { Server } = require("socket.io");
 const cors = require("cors");
@@ -10,21 +11,22 @@ const { typeDefs, resolvers } = require('./schemas');
 // Database 
 const { Question } = require('./models')
 const db = require('./config/connection');
+const { error } = require('console');
 // App Config
 const allowedOrigins = ['http://localhost:3000', 'https://yourdomain.com'];
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 app.use(express.json());
-// app.use(cors({
-//   origin: function(origin, callback){
-//     if (allowedOrigins.indexOf(origin) !== -1) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error('Not allowed by CORS'));
-//     }
-//   }
-// }));
-app.use(cors())
+app.use(cors({
+  origin: process.env.NODE_ENV === 'production' ? 'https://tweeter-4z96.onrender.com' : 'http://localhost:3000'
+})); // set up cors to only allow from deployed site url
+
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist', 'index.html'))
+});
+
 
 const apolloServer = new ApolloServer({ typeDefs, resolvers });
 
@@ -48,7 +50,7 @@ async function startApolloServer() {
 
   const io = new Server(server, {
     cors: {
-      origin: "http://localhost:3000", // Replace with your client URL
+      origin: process.env.NODE_ENV === 'production' ? 'https://tweeter-4z96.onrender.com/' : "http://localhost:3000", // Replace with your client URL
       methods: ["GET", "POST"]
     }
   });
@@ -67,7 +69,7 @@ async function startApolloServer() {
   // Question Timer
   let currentQuestionIndex = 0; // index on server start
 
-  const questionInterval = 15 * 1000 // 15 seconds, change to something more reasonable in production
+  const questionInterval = 60 * 1000; // 15 seconds, change to something more reasonable in production
 
   function startQuestionInterval() {
     setInterval(() => {
@@ -103,11 +105,29 @@ async function startApolloServer() {
   });
 
   db.once('open', () => {
-    server.listen(3001, () => {
-      console.log("Server is running on port 3001");
+    server.listen(PORT, () => {
+      console.log(`server is running on port ${PORT}`);
       console.log('graphql available at http://localhost:3001/graphql');
     });
   })
 };
 
 startApolloServer();
+
+// code to prevent render deploy server spindown
+if (process.env.NODE_ENV === 'production') {
+  const url = 'https://tweeter-4z96.onrender.com';
+  const interval = 60 * 1000 * 5; // 5 minutes
+  const reloadSite = () => {
+    fetch(url)
+      .then(res => {
+        console.log(`reloaded at ${new Date().toISOString()}: status ${res.status}`);
+      })
+      .catch(err => {
+        console.error(`error at ${new Date().toISOString}`, err.message);
+      });
+  };
+  setTimeout(() => {
+    setInterval(reloadSite, interval)
+  }, interval);
+};

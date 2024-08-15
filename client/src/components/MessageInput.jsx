@@ -4,10 +4,12 @@ import emoji from "../assets/emoji.svg";
 import { ADD_POST } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
 import { Send } from "lucide-react";
+import Filter from "bad-words";
 
 const MessageInput = ({ sendMessage, disabled, userId }) => {
   const [message, setMessage] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const filter = new Filter();
 
   const [addPost, { error, loading, data }] = useMutation(ADD_POST); //
 
@@ -19,15 +21,24 @@ const MessageInput = ({ sendMessage, disabled, userId }) => {
     e.preventDefault();
     if (message.trim() === "") return;
     console.log(userId);
+
+    const filteredMessage = filter.clean(message);
+
     await addPost({
       variables: {
-        comment: message,
+        comment: filteredMessage,
         profileId: userId,
       },
     });
-    sendMessage(message);
+    sendMessage(filteredMessage);
     setMessage("");
     setShowEmojiPicker(false);
+    // message timeout
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.disabled = false;
+    }, 1000);
   };
 
   const handleEmojiSelect = (emoji, emojiObject) => {
@@ -75,7 +86,7 @@ const MessageInput = ({ sendMessage, disabled, userId }) => {
               />
             </div>
           )}
-          <button type="submit" className="">
+          <button type="submit" className="" id="submitBtn">
             <Send className="hover:text-primary transition-all duration-300" />
           </button>
         </>
