@@ -10,11 +10,13 @@ By incorporating real-time messaging functionality, users can have seamless conv
 
 To get the development environment up and running, follow these steps:
 
-1. Clone the repository to your local machine.
-2. Navigate to the project directory.
-3. Install the necessary dependencies by running the command `npm install`.
-4. Configure the environment variables required for the project.
-5. Start the development server using the command `npm start`.
+Clone the repository to your local machine <b>or</b> visit [Tweeter](https://tweeter-4z96.onrender.com/) deployed from Render.  
+
+<b>If cloning:</b>  
+    1. Navigate to the project directory.  
+    2. Install the necessary dependencies by running the command `npm install`.  
+    3. Configure the environment variables required for the project.  
+    4. Start the development server using the command `npm start`.
 
 ## Usage
 
@@ -22,15 +24,21 @@ To use the chat room application, follow these instructions:
 
 1. Access the deployed application or run it locally.
 2. Sign up for an account or log in if you already have one.
-3. Explore the random generated questions or start a new conversation.
+3. Read the random generated question displayed and type your answer in the chat.
 4. Engage in real-time chat with other users.
 5. Enjoy the interactive and dynamic nature of the chat room.
 
-To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:
 
-```md
-![alt text](assets/images/screenshot.png)
-```
+Below is a screenshot of what Tweeter should look like upon reaching the homepage.
+
+![Homepage](./server/images/homepage.png)
+
+## Technologies Used
+- <b>Frontend:</b> React, HTML, CSS, JavaScript
+- <b>Backend:</b> Node.js, Express.js
+- <b>DB:</b> MongoDB
+- <b>Real-Time Messaging:</b> Socket.io
+- <b>Deployement:</b> Render
 
 ## Credits
 
